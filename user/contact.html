@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<title>Hostio</title>
+<link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="static/css/style.css">
+</head>
+
+<body>
+
+    <nav id="mainNav" class="navbar navbar-default navbar-full">
+        <div class="container container-nav">
+            <div class="navbar-header">
+                <button aria-expanded="false" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="index1.html">
+                    <img class="logo" src="static/picture/logo.png" alt="Hostio">
+                </a>
+            </div>
+            <div style="height: 1px;" role="main" aria-expanded="false" class="navbar-collapse collapse" id="bs">
+                <ul class="nav navbar-nav navbar-right">
+                   <li>
+                       <ul class="ul1">
+                           <li><img src="./static/image/tou.png" class="image"></li>
+                           <li>欢迎 {{adminName}}！</li>
+                       </ul>
+                   </li>
+                   <li><a class="chat-button" href="#">退出登录</a></li>
+               </ul>
+               
+           </div>
+        </div>
+    </nav>
+
+<div id="details" class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="col-title">生成邀请码</div>
+                <form id="contactform" method="post" autocomplete="off">
+                    <div class="form-items-holder">
+                        <button @click="code"></button>
+                        <div class="form-text">
+                            <input type="text" name="name" placeholder="输入生成的数量" required="">
+                        </div>
+                        <div class="form-button"><input id="submit" type="submit" value="确定生成" @click="code"></div>
+                        <div class="Invitation code">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script data-cfasync="false" src="static/js/email-decode.min.js"></script>
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/jquery-migrate.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+
+<script src="static/js/main.js"></script>
+
+<script>
+    var vm = new Vue({
+        el: '#form',
+        data: {
+            user: '',
+            datas: {user:''}
+        },
+        watch: {
+            datas(newOne) {
+                console.log(newOne.user)
+                vm.user=newOne.user
+            }
+        },
+        methods: {
+            code() {
+                let that = this;
+                axios.get(url_root + "/orders/platform/administrator/new").then(function (response) {
+                    that.datas = response.data
+                    // console.log("这是返回" + response.data.success)
+                }, function (err) {
+                    console.log(err);
+                })
+            },
+        }
+    })
+</script>
+
+</body>
+</html>

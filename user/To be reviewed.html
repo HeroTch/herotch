@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+
+    <title>待审核</title>
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/code.css">
+</head>
+
+<body>
+
+    <div class="top">
+        <div>
+            <img src="./static/image/head.jpg" style="width: 350px;">
+        </div>
+        <div class="right">
+            <div style="width: 300px;"></div>
+            <div class="title">待审核</div>
+            <div style="width: 300px;"></div>
+            <div class="login">
+                <div style="display: flex;">
+                    <img src="./static/image/tou.png" style="width: 35px; height: 35px;">
+                    <div style="margin-top: 8px; margin-left: 5px;">欢迎 会所平台管理员！</div>
+                </div>
+                <div style="margin-top: 8px;"><a class="chat-button" href="#">退出登录</a></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="pricing" class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row-title">审核</div>
+                    <div class="row-subtitle">需要您审核通过之后，商家才可注册入驻成功。
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="pricing-box purple-after">
+                        <div class="pricing-icon purple-color"><i class="hsto hsto-computer"></i></div>
+                        <div class="pricing-title">兰香阁健康会所</div>
+                        <div class="pricing-details">
+                            <ul>
+                                <li>会所简介：位于杭州市临安区，环境优美，价格实惠。</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-button"><a href="dhosting.html" class="purple-button">去审核</a></div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="pricing-box purple-after">
+                        <div class="pricing-icon purple-color"><i class="hsto hsto-computer"></i></div>
+                        <div class="pricing-title">天悦兰湾健康会所</div>
+                        <div class="pricing-details">
+                            <ul>
+                                <li>会所简介：打造VIP专属高级健康会所，奢侈的享受，等你体验。</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-button"><a href="dhosting.html" class="purple-button">去审核</a></div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="pricing-box purple-after">
+                        <div class="pricing-icon purple-color"><i class="hsto hsto-computer"></i></div>
+                        <div class="pricing-title">琅诘健康会所</div>
+                        <div class="pricing-details">
+                            <ul>
+                                <li>会所简介：技师手法一流，价格亲民，活动多多。</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-button"><a href="dhosting.html" class="purple-button">去审核</a></div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="pricing-box purple-after">
+                        <div class="pricing-icon purple-color"><i class="hsto hsto-computer"></i></div>
+                        <div class="pricing-title">XXX健康会所</div>
+                        <div class="pricing-details">
+                            <ul>
+                                <li>会所简介：xxxxxx</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-button"><a href="dhosting.html" class="purple-button">去审核</a></div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="pricing-box purple-after">
+                        <div class="pricing-icon purple-color"><i class="hsto hsto-computer"></i></div>
+                        <div class="pricing-title">XXX健康会所</div>
+                        <div class="pricing-details">
+                            <ul>
+                                <li>会所简介：xxxxxx</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-button"><a href="dhosting.html" class="purple-button">去审核</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script data-cfasync="false" src="static/js/email-decode.min.js"></script>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/jquery-migrate.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/createjs.min.js"></script>
+    <script src="static/js/handanimation.js"></script>
+    <script src="static/js/main.js"></script>
+    <script src="static/js/web_config.js"></script>
+    <script src="static/js/axios.min.js"></script>
+    <script src="static/js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '',
+            data: {
+                user: '',
+                datas: {user:''}
+            },
+            watch: {
+                datas(newOne) {
+                    console.log(newOne.user)
+                    vm.user=newOne.user
+                }
+            },
+            methods: {
+                code() {
+                    console.log("sss")
+                    let that = this;
+                    axios.get(url_root + "orders/business/certification/uncheck?status=1").then(function (response) {
+                        that.datas = response.data
+                        console.log("这是返回" + response.data.success)
+                    }, function (err) {
+                        console.log(err);
+                    })
+                },
+            }
+        })
+        // vm.code();
+    </script>
+</body>
+
+</html>

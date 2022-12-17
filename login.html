@@ -1,0 +1,166 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>用户登录</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="static1/css/bootstrap.min.css">
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="static1/css/fontawesome-all.min.css">
+	<!-- Flaticon CSS -->
+	<link rel="stylesheet" href="static1/css/flaticon.css">
+	<!-- Google Web Fonts -->
+	<link href="static1/css/css.css" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="static1/css/style.css">
+	<link rel="stylesheet" href="static1/css/index.css">
+</head>
+
+<body>
+	<!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+	<div id="preloader" class="preloader">
+		<div class='inner'>
+			<div class='line1'></div>
+			<div class='line2'></div>
+			<div class='line3'></div>
+		</div>
+	</div>
+	<section class="fxt-template-animation fxt-template-layout26">
+		<!-- Animation Start Here -->
+		<div class="starfield"></div>
+		<!-- Animation End Here -->
+		<div class="fxt-content">
+
+			<div class="fxt-form">
+				<div class="fxt-transformY-50 fxt-transition-delay-1">
+					<p style="font-weight: bolder;">欢迎登录会所管理平台!</p>
+				</div>
+				<div method="POST" id="form">
+					<div v-show="see">
+						<el-alert title="账号或者密码错误！" type="error" center show-icon :closable="false">
+						</el-alert>
+					</div>
+					<div style="height: 10px;"></div>
+					<div class="form-group">
+						<div class="fxt-transformY-50 fxt-transition-delay-2">
+							<input v-model="adminName" type="email" id="email" class="form-control" name="email"
+								placeholder="请输入账号" required="required">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="fxt-transformY-50 fxt-transition-delay-3">
+							<input v-model="password" id="password" v-bind:type="type" class="form-control"
+								name="password" placeholder="请输入密码" required="required">
+							<i @click="cgType" toggle="#password"
+								class="fa fa-fw fa-eye toggle-password field-icon"></i>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="fxt-transformY-50 fxt-transition-delay-4">
+							<div class="fxt-checkbox-area">
+								<div class="checkbox">
+									<input id="checkbox1" type="checkbox">
+									<label for="checkbox1">记住我</label>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="fxt-transformY-50 fxt-transition-delay-5">
+							<button @click="login" class="fxt-btn-fill">登录</button>
+						</div>
+					</div>
+					<div class="form-group" style="margin: -88px 130px 0px;">
+						<div class="fxt-transformY-50 fxt-transition-delay-5">
+							<a href="register-26.html"><button class="fxt-btn-fill">注册</button></a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</section>
+	<!-- jquery-->
+	<script src="static1/js/jquery-3.5.0.min.js"></script>
+	<!-- Bootstrap js -->
+	<script src="static1/js/bootstrap.min.js"></script>
+	<!-- Imagesloaded js -->
+	<script src="static1/js/imagesloaded.pkgd.min.js"></script>
+	<!-- Starfield js -->
+	<script src="static1/js/starfield.js"></script>
+	<!-- Validator js -->
+	<script src="static1/js/validator.min.js"></script>
+	<!-- Custom Js -->
+	<script src="static1/js/main.js"></script>
+	<script src="./config/web_config.js"></script>
+	<script src="./static1/js/vue.js"></script>
+	<script src="./static1/js/axios.min.js"></script>
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script src="./static1/web_config.js"></script>
+	<script>
+		var vm = new Vue({
+			el: '#form',
+			data: {
+				adminName: '',
+				password: '',
+				datas: 'sjs',
+				see: false,
+				type: 'password'
+			},
+			watch: {
+				password(newOne, o) {
+					console.log(newOne)
+					console.log(o)
+				},
+				datas(newOne) {
+					console.log(newOne.user)
+					if (newOne.user.length > 0) {
+						console.log("登录")
+						let href = window.location.href
+						let hrefList = href.split('/')
+						console.log(hrefList)
+						href = ''
+						for (let i = 0; i < hrefList.length - 1; i++) {
+							href += hrefList[i] + '/'
+						}
+						href += "user/index.html?" + newOne.permission
+						console.log(href)
+						window.location.href = href
+					} else {
+						this.see = true
+					}
+				}
+			},
+			methods: {
+				login() {
+					let that = this;
+					axios.get(url_root + "/orders/platform/administrator/login?adminName=" + this.adminName + "&password=" + this.password).then(function (response) {
+						that.datas = response.data
+						// console.log("这是返回" + response.data.success)
+					}, function (err) {
+						console.log(err);
+					})
+				},
+				cgType() {
+					if (this.type == 'password') {
+						this.type = 'text'
+					} else {
+						this.type = 'password'
+					}
+				}
+
+			}
+		})
+	</script>
+
+</body>
+
+</html>

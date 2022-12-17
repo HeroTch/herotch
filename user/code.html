@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成邀请码</title>
+</head>
+<link rel="stylesheet" type="text/css" href="static/css/code.css">
+<!-- <link rel="stylesheet" type="text/css" href="static/css/style.css"> -->
+
+<body>
+    <div class="all">
+        <div class="top">
+            <div>
+                <img src="./static/image/head.jpg" style="width: 350px;">
+            </div>
+            <div class="right">
+                <div style="width: 300px;"></div>
+                <div class="title">生成邀请码</div>
+                <div style="width: 300px;"></div>
+                <div class="login">
+                    <div style="display: flex;">
+                        <img src="./static/image/tou.png" style="width: 35px; height: 35px;">
+                        <div style="margin-top: 8px; margin-left: 5px;">欢迎 会所平台管理员！</div>
+                    </div>
+                    <div style="margin-top: 8px;"><a class="chat-button" href="#">退出登录</a></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="body1">
+            <div style="height: 80px;"></div>
+            <div class="card">
+                <div id="div">
+                    <div >
+                        <div style="height: 20px;"></div>
+                        <div style="display: flex;">
+                            <div style="width: 35px;"></div>
+                            <div style="margin-top: 8px;"><a class="sc-button" href="#" @click="code">立即生成</a></div>
+                            <div style="width: 130px;"></div>
+                            <div style="margin-top: 15px;"><a @click="aa" href="#" class="copy">一键复制</a></div>
+                        </div>
+                        <div style="height: 20px;"></div>
+                        <div class="text">{{user}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="/static1/js/vue.js"></script>
+<script src="/static1/js/axios.min.js"></script>
+<script src="/static1/web_config.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#div',
+        data: {
+            user: '',
+            datas: { user: '' }
+        },
+        watch: {
+            datas(newOne) {
+                console.log(newOne.user)
+                vm.user = newOne.user
+            }
+        },
+        methods: {
+            code() {
+                let that = this;
+                axios.get(url_root + "/orders/platform/administrator/new").then(function (response) {
+                    that.datas = response.data
+                    // console.log("这是返回" + response.data.success)
+                }, function (err) {
+                    console.log(err);
+                })
+            },
+            aa() {
+                const input = document.createElement('input');
+                document.body.appendChild(input);
+                input.setAttribute('value', this.user);
+                input.select();
+                if (document.execCommand('copy')) {
+                    document.execCommand('copy');
+                }
+                alert('已复制到粘贴板！')
+                document.body.removeChild(input)
+            }
+        }
+    })
+</script>
+
+</html>
